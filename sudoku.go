@@ -67,6 +67,8 @@ func (g *Grid) Clear(row, column int) error {
 	switch {
 	case !inBounds(row, column):
 		return ErrBounds
+	case g.inFixed(row, column):
+		return ErrFixedDigit
 	}
 	g[row][column].digit = empty
 	return nil
@@ -131,8 +133,8 @@ func main() {
 		{0, 8, 5, 0, 7, 6, 4, 3, 2},
 		{0, 7, 6, 4, 2, 9, 0, 0, 1},
 	})
-	err := s.Set(0, 0, 1)
-	//err :s.Crear(1,2)
+	//err := s.Set(0, 0, 1)
+	err := s.Clear(0, 1)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
