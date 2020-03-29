@@ -1,55 +1,71 @@
 package main
 
-inport {
-	"errors"
+import (
 	"fmt"
-	"os"
-}
+)
 
-const {
-	rows , columns = 9,9
-	empty          = 0
-}
+const (
+	rows, columns = 9, 9
+	empty         = 0
+)
 
-//マス目->Cell
+//マス目Cell
 type Cell struct {
 	digit int8
 	fired bool
 }
 
-type grid [rows][columns]Cell
+type Grid [rows][columns]Cell
 
-
-//数独グリッドの作成
-func NewCreate(digits [rows][columns]int8) *grid{
-
+func NewCreate(digits [rows][columns]int8) *Grid {
+	var grid Grid
+	for r := 0; r < rows; r++ {
+		for c := 0; c < columns; c++ {
+			d := digits[r][c]
+			if d != empty {
+				grid[r][c].digit = d
+				grid[r][c].fired = true
+			}
+		}
+	}
+	return &grid
 }
 
-
-func (g *gird) Set(row, column int , digit int8) {
+func (g *Grid) Set(row, column int, digit int8) error {
+	g[row][column].digit = digit
+	return nil
 }
 
-//
-func Clear{
+//func (g *Grid)Clear(){}
 
-}
+//func inRow(){}
 
-func inRow(){
+//func inColumn(){}
 
-}
+//func inRegin(){}
 
-func inColumn(){
+//func inFixed(){}
 
-}
-
-func inRegin(){
-
-}
-
-func inFixed(){
-
-}
-
-func main(){
+func main() {
 	//NewCreate実行
+	s := NewCreate([rows][columns]int8{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0},
+	})
+	//	err := s.Set(1, 1, 4)
+	//	if err != nil {
+	//		fmt.Println(err)
+	//		os.Exit(1)
+	//	}
+	//結果
+	for _, row := range s {
+		fmt.Println(row)
+	}
 }
